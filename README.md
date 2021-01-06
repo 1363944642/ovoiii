@@ -102,6 +102,12 @@ node config/convert.key.js
 
 你会看到转换成 Base64 格式的 Private Key 与 Public Key，把得到的内容交给 .env 文件里的 PRIVATE_KEY 与 PUBLIC_KEY。
 
+## 编译应用
+
+```
+npm run build
+```
+
 ## 启动应用
 
 ```
