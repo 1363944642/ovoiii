@@ -2,8 +2,22 @@ import express from 'express';
 
 const router = express.Router();
 
+import fs from 'fs';
+
 router.get('/', (request, response) => {
-  response.send({ title: '小白兔的开发之路' });
+  // response.send({ title: '迷鹿相册' });
+
+  /**
+   * 暂时设置前端静态页面备案用途
+   */
+  response.setHeader('Content-type', 'text/html;charset=utf-8');
+  fs.readFile('lostelk-ux/views/layout.html', "utf-8", function (err, data) {
+    if (!err) {
+      response.end(data)
+    } else {
+      console.log(err)
+    }
+  })
 });
 
 router.post('/echo', (request, response) => {
