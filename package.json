@@ -1,7 +1,7 @@
 {
-  "name": "ovoiii",
+  "name": "lostelk",
   "version": "1.0.0",
-  "description": "ovoiii照片分享应用",
+  "description": "迷鹿照片分享应用",
   "author": "mil <1363944642@qq.com>",
   "scripts": {
     "start:dev": "tsc-watch --onSuccess \"node dist/main.js\"",
