@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import * as userService from '../user/user.service';
 import { PUBLIC_KEY } from '../app/app.config';
@@ -150,4 +150,40 @@ export const accessControlFile = (options: AccessControlOptions) => {
 
     next();
   };
+};
+
+/**
+ * 当前用户
+ */
+export const currentUser = (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  let user: TokenPayload = {
+    // 未登录的用户
+    id: null,
+    name: 'anonymous',
+  };
+  try {
+    // 提取 Authorization
+    const authorization = request.header('Authorization');
+
+    // 提取 JWT 令牌
+    const token = authorization.replace('Bearer ', '');
+
+    if (token) {
+      // 验证令牌
+      const decoded = jwt.verify(token, PUBLIC_KEY, {
+        algorithms: ['RS256'],
+      });
+
+      user = decoded as TokenPayload;
+    }
+  } catch (error) { }
+
+  // 在请求里添加当前用户
+  request.user = user;
+
+  next();
 };
