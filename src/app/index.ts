@@ -40,7 +40,7 @@ app.use(currentUser);
 /**
  * 设置静态文件(暂时设置静态页面用)
  */
-app.use(express.static('lostelk-ux'));
+app.use(express.static('lostelk-static'));
 
 /**
  * 路由
