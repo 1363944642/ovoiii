@@ -60,15 +60,19 @@ export const fileProcessor = async (
     return next(error);
   }
 
-  // 准备文件数据
-  const { imageSize, tags } = image['_exif'];
+  try {
+    // 准备文件数据
+    const { imageSize, tags } = image['_exif'];
+    // 在请求中添加文件数据
+    request.fileMetaData = {
+      width: imageSize.width,
+      height: imageSize.height,
+      metadata: JSON.stringify(tags),
+    };
+  } catch (error) {
+    return next(error)
+  }
 
-  // 在请求中添加文件数据
-  request.fileMetaData = {
-    width: imageSize.width,
-    height: imageSize.height,
-    metadata: JSON.stringify(tags),
-  };
 
   // 调整图像尺寸
   imageResizer(image, request.file);
