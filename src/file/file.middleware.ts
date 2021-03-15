@@ -63,6 +63,7 @@ export const fileProcessor = async (
   try {
     // 准备文件数据
     const { imageSize, tags } = image['_exif'];
+
     // 在请求中添加文件数据
     request.fileMetaData = {
       width: imageSize.width,
@@ -70,7 +71,7 @@ export const fileProcessor = async (
       metadata: JSON.stringify(tags),
     };
   } catch (error) {
-    return next(error)
+    return next(new Error('FILE_TYPE_NOT_SIZE'));
   }
 
 
